@@ -14,7 +14,12 @@ public class FileEntity {
     private String filename;
     private String url;
     private long size;
-    private LocalDateTime uploadTime;
+    private LocalDateTime uploadTime = LocalDateTime.now();
+
+    // Каждый файл имеет владельца
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id") // колонка в таблице files
+    private UserEntity owner;
 
     public FileEntity() {}
 
@@ -22,7 +27,6 @@ public class FileEntity {
         this.filename = filename;
         this.url = url;
         this.size = size;
-        this.uploadTime = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
@@ -30,10 +34,12 @@ public class FileEntity {
     public String getUrl() { return url; }
     public long getSize() { return size; }
     public LocalDateTime getUploadTime() { return uploadTime; }
+    public UserEntity getOwner() { return owner; }
 
     public void setId(Long id) { this.id = id; }
     public void setFilename(String filename) { this.filename = filename; }
     public void setUrl(String url) { this.url = url; }
     public void setSize(long size) { this.size = size; }
     public void setUploadTime(LocalDateTime uploadTime) { this.uploadTime = uploadTime; }
+    public void setOwner(UserEntity owner) { this.owner = owner; }
 }
