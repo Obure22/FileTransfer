@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") // тут
 public class FileUploadController {
 
 	private final StorageService storageService;
@@ -28,8 +28,7 @@ public class FileUploadController {
 
 	// Загрузка файла с указанием владельца
 	@PostMapping("/upload")
-	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file,
-										@RequestParam("username") String username) {
+	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
 		// Проверяем, есть ли пользователь
 		UserEntity user = userRepository.findByUsername(username);
 		if (user == null) {

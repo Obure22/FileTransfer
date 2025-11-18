@@ -1,5 +1,6 @@
 package Tpu_8K31.uploadingfiles;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class UserEntity {
     private String email;
 
     // Один пользователь может иметь несколько файлов
+    @JsonManagedReference
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileEntity> files;
 

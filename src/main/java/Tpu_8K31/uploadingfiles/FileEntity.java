@@ -1,5 +1,6 @@
 package Tpu_8K31.uploadingfiles;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,6 +18,7 @@ public class FileEntity {
     private LocalDateTime uploadTime = LocalDateTime.now();
 
     // Каждый файл имеет владельца
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id") // колонка в таблице files
     private UserEntity owner;
