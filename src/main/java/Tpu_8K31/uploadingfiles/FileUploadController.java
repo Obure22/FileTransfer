@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.MediaType;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -35,13 +36,15 @@ public class FileUploadController {
 			return ResponseEntity.badRequest().body("Пользователь не найден: " + username);
 		}
 
-		// Сохраняем файл на диск
-		storageService.store(file);
+		String uniqueName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
-		String url = "/api/files/" + file.getOriginalFilename();
+		// Сохраняем файл на диск
+		storageService.store(file, uniqueName);
+
+		String url = "/api/files/" + uniqueName;
 
 		// Сохраняем запись в базу
-		FileEntity entity = new FileEntity(file.getOriginalFilename(), url, file.getSize());
+		FileEntity entity = new FileEntity(file.getOriginalFilename(),uniqueName, url, file.getSize());
 		entity.setOwner(user);
 		fileRepository.save(entity);
 
@@ -65,9 +68,9 @@ public class FileUploadController {
 	}
 
 	// Скачать файл
-	@GetMapping("/files/{filename:.+}")
-	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-		Resource file = storageService.loadAsResource(filename);
+	@GetMapping("/files/{uniqueFileName:.+}")
+	public ResponseEntity<Resource> getFile(@PathVariable String uniqueFileName) {
+		Resource file = storageService.loadAsResource(uniqueFileName);
 		return ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_OCTET_STREAM)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")

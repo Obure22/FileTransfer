@@ -22,15 +22,18 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	@Override
-	public void store(MultipartFile file) {
+	public void store(MultipartFile file, String uniqueName) {
 		try {
 			if (file.isEmpty()) {
 				throw new StorageException("Cannot store empty file.");
 			}
 			Path destinationFile = this.rootLocation.resolve(
-							Paths.get(file.getOriginalFilename()))
+							Paths.get(uniqueName))
 					.normalize().toAbsolutePath();
 			try (InputStream inputStream = file.getInputStream()) {
+				Path destinationFile2 = this.rootLocation.resolve(Paths.get(uniqueName)).normalize().toAbsolutePath();
+				System.out.println("Saving file as: " + destinationFile2);
+
 				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 			}
 		} catch (IOException e) {

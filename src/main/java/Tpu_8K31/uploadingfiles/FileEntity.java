@@ -13,6 +13,7 @@ public class FileEntity {
     private Long id;
 
     private String filename;
+    private String uniqueFileName;
     private String url;
     private long size;
     private LocalDateTime uploadTime = LocalDateTime.now();
@@ -25,8 +26,9 @@ public class FileEntity {
 
     public FileEntity() {}
 
-    public FileEntity(String filename, String url, long size) {
+    public FileEntity(String filename,String uniqueFileName, String url, long size) {
         this.filename = filename;
+        this.uniqueFileName = uniqueFileName;
         this.url = url;
         this.size = size;
     }
@@ -37,6 +39,7 @@ public class FileEntity {
     public long getSize() { return size; }
     public LocalDateTime getUploadTime() { return uploadTime; }
     public UserEntity getOwner() { return owner; }
+    public String getUniqueFilename(){return uniqueFileName;}
 
     public void setId(Long id) { this.id = id; }
     public void setFilename(String filename) { this.filename = filename; }
@@ -44,4 +47,5 @@ public class FileEntity {
     public void setSize(long size) { this.size = size; }
     public void setUploadTime(LocalDateTime uploadTime) { this.uploadTime = uploadTime; }
     public void setOwner(UserEntity owner) { this.owner = owner; }
+    public void setUniqueFileName(String uniqueFileName) { this.uniqueFileName = uniqueFileName; }
 }
