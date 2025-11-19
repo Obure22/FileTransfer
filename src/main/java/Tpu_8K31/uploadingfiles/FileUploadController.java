@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,9 +28,9 @@ public class FileUploadController {
 		this.userRepository = userRepository;
 	}
 
-	// Загрузка файла с указанием владельца
+	// Загрузка файла с указанием владельца. С фронта подаётся кол-во времени до исчезновения файла в секундах.
 	@PostMapping("/upload")
-	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
+	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("timeLength")LocalDateTime timeLength) {
 		// Проверяем, есть ли пользователь
 		UserEntity user = userRepository.findByUsername(username);
 		if (user == null) {
@@ -44,7 +45,7 @@ public class FileUploadController {
 		String url = "/api/files/" + uniqueName;
 
 		// Сохраняем запись в базу
-		FileEntity entity = new FileEntity(file.getOriginalFilename(),uniqueName, url, file.getSize());
+		FileEntity entity = new FileEntity(file.getOriginalFilename(),uniqueName, url, file.getSize(),timeLength);
 		entity.setOwner(user);
 		fileRepository.save(entity);
 
