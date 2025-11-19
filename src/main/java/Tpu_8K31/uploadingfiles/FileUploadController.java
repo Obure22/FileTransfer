@@ -71,9 +71,22 @@ public class FileUploadController {
 	@GetMapping("/files/{uniqueFileName:.+}")
 	public ResponseEntity<Resource> getFile(@PathVariable String uniqueFileName) {
 		Resource file = storageService.loadAsResource(uniqueFileName);
+		FileEntity fileEntity = fileRepository.findByUniqueFileName(uniqueFileName);
 		return ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_OCTET_STREAM)
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileEntity.getUniqueFilename() + "\"")
 				.body(file);
 	}
+
+	// Удалить файл
+	@DeleteMapping("/files/{uniqueFileName:.+}")
+	public ResponseEntity<?> deleteFile(@PathVariable String uniqueFileName){
+		FileEntity file = fileRepository.findByUniqueFileName(uniqueFileName);
+		if (file == null){
+			return ResponseEntity.notFound().build();
+		}
+		fileRepository.delete(file);
+		storageService.delete(uniqueFileName);
+        return ResponseEntity.ok().build();
+    }
 }

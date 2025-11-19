@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -31,8 +32,6 @@ public class FileSystemStorageService implements StorageService {
 							Paths.get(uniqueName))
 					.normalize().toAbsolutePath();
 			try (InputStream inputStream = file.getInputStream()) {
-				Path destinationFile2 = this.rootLocation.resolve(Paths.get(uniqueName)).normalize().toAbsolutePath();
-				System.out.println("Saving file as: " + destinationFile2);
 
 				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 			}
@@ -76,6 +75,15 @@ public class FileSystemStorageService implements StorageService {
 	public void deleteAll() {
 		FileSystemUtils.deleteRecursively(rootLocation.toFile());
 	}
+
+	@Override
+	public void delete(String uniqueFileName){
+		try {
+			Files.delete(rootLocation.resolve(uniqueFileName));
+		} catch (IOException e) {
+            throw new StorageException("Couldn't delete");
+        }
+    }
 
 	@Override
 	public void init() {
