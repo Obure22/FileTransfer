@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Bean;
 
 import Tpu_8K31.uploadingfiles.storage.StorageProperties;
 import Tpu_8K31.uploadingfiles.storage.StorageService;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 @EnableConfigurationProperties(StorageProperties.class)
 public class UploadingFilesApplication {
 

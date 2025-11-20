@@ -17,7 +17,8 @@ public class FileEntity {
     private String url;
     private long size;
     private LocalDateTime uploadTime = LocalDateTime.now();
-    private LocalDateTime uploadTimeLength;
+    private Long uploadTimeLength; // в минутах
+    private LocalDateTime deleteAt;
 
     // Каждый файл имеет владельца
     @JsonBackReference
@@ -27,7 +28,7 @@ public class FileEntity {
 
     public FileEntity() {}
 
-    public FileEntity(String filename,String uniqueFileName, String url, long size, LocalDateTime uploadTimeLength) {
+    public FileEntity(String filename,String uniqueFileName, String url, long size, Long uploadTimeLength) {
         this.filename = filename;
         this.uniqueFileName = uniqueFileName;
         this.url = url;
@@ -42,7 +43,8 @@ public class FileEntity {
     public LocalDateTime getUploadTime() { return uploadTime; }
     public UserEntity getOwner() { return owner; }
     public String getUniqueFilename(){return uniqueFileName;}
-    public LocalDateTime getUploadTimeLength(){return uploadTimeLength;}
+    public Long getUploadTimeLength(){return uploadTimeLength;}
+    public LocalDateTime getDeleteAt(){return deleteAt;}
 
     public void setId(Long id) { this.id = id; }
     public void setFilename(String filename) { this.filename = filename; }
@@ -51,5 +53,6 @@ public class FileEntity {
     public void setUploadTime(LocalDateTime uploadTime) { this.uploadTime = uploadTime; }
     public void setOwner(UserEntity owner) { this.owner = owner; }
     public void setUniqueFileName(String uniqueFileName) { this.uniqueFileName = uniqueFileName; }
-    public void setUploadTimeLength(LocalDateTime uploadTimeLength){this.uploadTimeLength = uploadTimeLength;}
+    public void setUploadTimeLength(Long uploadTimeLength){this.uploadTimeLength = uploadTimeLength;}
+    public void setDeleteAt(LocalDateTime deleteAt){this.deleteAt = deleteAt;}
 }

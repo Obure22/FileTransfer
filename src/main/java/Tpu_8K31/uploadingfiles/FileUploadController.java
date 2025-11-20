@@ -28,9 +28,9 @@ public class FileUploadController {
 		this.userRepository = userRepository;
 	}
 
-	// Загрузка файла с указанием владельца. С фронта подаётся кол-во времени до исчезновения файла в секундах.
+	// Загрузка файла с указанием владельца. С фронта подаётся кол-во времени до исчезновения файла в минутах.
 	@PostMapping("/upload")
-	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("timeLength")LocalDateTime timeLength) {
+	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("timeLength")Long timeLength) {
 		// Проверяем, есть ли пользователь
 		UserEntity user = userRepository.findByUsername(username);
 		if (user == null) {
@@ -46,6 +46,7 @@ public class FileUploadController {
 
 		// Сохраняем запись в базу
 		FileEntity entity = new FileEntity(file.getOriginalFilename(),uniqueName, url, file.getSize(),timeLength);
+		entity.setDeleteAt(entity.getUploadTime().plusMinutes(timeLength)); // в минутах
 		entity.setOwner(user);
 		fileRepository.save(entity);
 
