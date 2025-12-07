@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*") // тут
+@CrossOrigin(origins = "http://localhost:3000") // тут
 public class FileUploadController {
 
 	private final StorageService storageService;
