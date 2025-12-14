@@ -14,6 +14,7 @@ public class UserEntity {
 
     private String username;
     private String email;
+    private String password;
 
     // Один пользователь может иметь несколько файлов
     @JsonManagedReference
@@ -25,15 +26,18 @@ public class UserEntity {
     public UserEntity(String username, String email) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
     public Long getId() { return id; }
     public String getUsername() { return username; }
     public String getEmail() { return email; }
     public List<FileEntity> getFiles() { return files; }
+    public String getPassword() { return password; }
 
     public void setId(Long id) { this.id = id; }
     public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email; }
     public void setFiles(List<FileEntity> files) { this.files = files; }
+    public void setPassword(String password) { this.password = password; }
 }

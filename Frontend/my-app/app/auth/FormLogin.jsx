@@ -43,7 +43,7 @@ export default function FormLogin() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button onClick={handleLogin}>Загрузить</button>
+          <button onClick={handleLogin}>Войти</button>
         </div>
       );
     }

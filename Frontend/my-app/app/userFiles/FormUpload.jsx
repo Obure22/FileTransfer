@@ -40,7 +40,7 @@ export default function FormUpload() {
 
           <input
             type="text"
-            placeholder="username"
+            placeholder="Имя пользователя"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
