@@ -2,9 +2,10 @@ import "./globals.css";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="ru">
         <head>
-            <meta charSet="UTF-8" />
+            <title>Файлообменник</title>
+            <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         </head>
       <body>
           <header>

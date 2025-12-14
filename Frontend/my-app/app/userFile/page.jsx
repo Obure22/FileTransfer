@@ -1,5 +1,9 @@
 import '@/app/ui/file.css';
 
+export const metadata = {
+    title: 'Файл',
+    description: 'Это страница файла'
+};
 
 export default function FilePage() {
     return (
