@@ -14,7 +14,7 @@ services:
     volumes:
       - uploads:/uploads
     user: root
-    command: sh -c "mkdir -p /uploads && chown -R appuser:appuser /uploads && java -jar /app.jar"
+    command: sh -c "mkdir -p /uploads && chown -R appuser:appuser /uploads"
 
   db:
     image: postgres:15

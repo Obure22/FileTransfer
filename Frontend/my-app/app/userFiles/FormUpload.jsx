@@ -8,7 +8,7 @@ export default function FormUpload() {
     const [username, setUsername] = useState("");
     const [timeLength, setTimeLength] = useState("");
 
-      function handleUpload() {
+    async function handleUpload() {
         if (!file) {
           alert("Выберите файл");
           return;
