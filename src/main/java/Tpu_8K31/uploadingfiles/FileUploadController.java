@@ -76,7 +76,7 @@ public class FileUploadController {
 		FileEntity fileEntity = fileRepository.findByUniqueFileName(uniqueFileName);
 		return ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_OCTET_STREAM)
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileEntity.getUniqueFilename() + "\"")
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileEntity.getUniqueFileName() + "\"")
 				.body(file);
 	}
 

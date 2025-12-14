@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableConfigurationProperties(StorageProperties.class)
 public class UploadingFilesApplication {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		SpringApplication.run(UploadingFilesApplication.class, args);
 	}
 

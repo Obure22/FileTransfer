@@ -3,8 +3,12 @@ package Tpu_8K31.uploadingfiles;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "files")
 public class FileEntity {
 
@@ -35,24 +39,4 @@ public class FileEntity {
         this.size = size;
         this.uploadTimeLength = uploadTimeLength;
     }
-
-    public Long getId() { return id; }
-    public String getFilename() { return filename; }
-    public String getUrl() { return url; }
-    public long getSize() { return size; }
-    public LocalDateTime getUploadTime() { return uploadTime; }
-    public UserEntity getOwner() { return owner; }
-    public String getUniqueFilename(){return uniqueFileName;}
-    public Long getUploadTimeLength(){return uploadTimeLength;}
-    public LocalDateTime getDeleteAt(){return deleteAt;}
-
-    public void setId(Long id) { this.id = id; }
-    public void setFilename(String filename) { this.filename = filename; }
-    public void setUrl(String url) { this.url = url; }
-    public void setSize(long size) { this.size = size; }
-    public void setUploadTime(LocalDateTime uploadTime) { this.uploadTime = uploadTime; }
-    public void setOwner(UserEntity owner) { this.owner = owner; }
-    public void setUniqueFileName(String uniqueFileName) { this.uniqueFileName = uniqueFileName; }
-    public void setUploadTimeLength(Long uploadTimeLength){this.uploadTimeLength = uploadTimeLength;}
-    public void setDeleteAt(LocalDateTime deleteAt){this.deleteAt = deleteAt;}
 }

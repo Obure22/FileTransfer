@@ -24,7 +24,7 @@ public class FileCleanupService {
         List<FileEntity> expiredFiles = fileRepository.findByDeleteAtBefore(LocalDateTime.now());
 
         for (FileEntity file : expiredFiles){
-            storageService.delete(file.getUniqueFilename());
+            storageService.delete(file.getUniqueFileName());
             fileRepository.delete(file);
         }
     }
