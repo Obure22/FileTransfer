@@ -1,5 +1,5 @@
 services:
-  app:
+  backend:
     build: .
     ports:
       - "8080:8080"
@@ -33,6 +33,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  frontend:
+    build:
+      context: ./Frontend/my-app
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    depends_on:
+      db:
+        condition: service_healthy
+
 
 volumes:
   db-data:
