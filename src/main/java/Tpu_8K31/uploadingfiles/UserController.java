@@ -1,5 +1,6 @@
 package Tpu_8K31.uploadingfiles;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,14 +11,19 @@ import java.util.List;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // Создать нового пользователя
-    @PostMapping
-    public UserEntity createUser(@RequestBody UserEntity user) {
+    @PostMapping("/register")
+    public UserEntity createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
+        String encodedPassword = passwordEncoder.encode(password);
+        UserEntity user = new UserEntity(username, email, encodedPassword);
         return userRepository.save(user);
     }
 

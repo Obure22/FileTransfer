@@ -4,36 +4,36 @@ import { useState } from "react";
 
 export default function FormLogin() {
 
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     async function handleLogin() {
-        if (!email) {
-          alert("Введите почту");
+        if (!username) {
+          alert("Введите логин");
           return;
         }
 
         const formData = new FormData();
-        formData.append("email", email);
+        formData.append("username", username);
         formData.append("password", password);
 
-        const response = await fetch("http://localhost:8080/api/users", {
+        const response = await fetch("http://localhost:8080/api/login", {
           method: "POST",
           body: formData,
         });
 
         const data = await response.json();
         console.log("Ответ сервера:", data);
-        alert("Файл загружен");
+        alert("Вход выполнен");
       }
 
     return (
         <div>
           <input
-            type="email"
-            placeholder="Адрес почты"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Имя пользователя"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <input

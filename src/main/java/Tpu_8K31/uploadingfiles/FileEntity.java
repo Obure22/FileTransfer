@@ -17,10 +17,12 @@ public class FileEntity {
     private Long id;
 
     private String filename;
+
     private String uniqueFileName;
     private String url;
     private long size;
     private LocalDateTime uploadTime = LocalDateTime.now();
+
     private Long uploadTimeLength; // в минутах
     private LocalDateTime deleteAt;
 
