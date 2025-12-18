@@ -19,9 +19,12 @@ export default function FormUpload() {
         formData.append("username", username);
         formData.append("timeLength", timeLength);
 
+        const token = localStorage.getItem("token");
+
         const response = await fetch("http://localhost:8080/api/upload", {
-          method: "POST",
-          body: formData,
+            method: "POST",
+            headers: {"Authorization": "Bearer " + token},
+            body: formData,
         });
 
         if (!response.ok) {

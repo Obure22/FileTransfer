@@ -23,6 +23,7 @@ export default function FormLogin() {
         });
 
         const data = await response.json();
+        localStorage.setItem("token", data.token);
         console.log("Ответ сервера:", data);
         alert("Вход выполнен");
       }

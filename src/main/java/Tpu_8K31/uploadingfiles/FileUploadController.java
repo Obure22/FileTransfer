@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.MediaType;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // тут
+//@CrossOrigin(origins = "http://localhost:3000") // тут
 public class FileUploadController {
 
 	private final StorageService storageService;
