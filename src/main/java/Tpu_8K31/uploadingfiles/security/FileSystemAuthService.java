@@ -1,7 +1,7 @@
 package Tpu_8K31.uploadingfiles.security;
 
-import Tpu_8K31.uploadingfiles.UserEntity;
-import Tpu_8K31.uploadingfiles.UserRepository;
+import Tpu_8K31.uploadingfiles.user.UserEntity;
+import Tpu_8K31.uploadingfiles.user.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

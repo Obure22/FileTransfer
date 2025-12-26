@@ -1,5 +1,6 @@
-package Tpu_8K31.uploadingfiles;
+package Tpu_8K31.uploadingfiles.user;
 
+import Tpu_8K31.uploadingfiles.files.FileEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;

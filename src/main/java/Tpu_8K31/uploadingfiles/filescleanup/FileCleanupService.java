@@ -1,7 +1,7 @@
 package Tpu_8K31.uploadingfiles.filescleanup;
 
-import Tpu_8K31.uploadingfiles.FileEntity;
-import Tpu_8K31.uploadingfiles.FileRepository;
+import Tpu_8K31.uploadingfiles.files.FileEntity;
+import Tpu_8K31.uploadingfiles.files.FileRepository;
 import Tpu_8K31.uploadingfiles.storage.StorageService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

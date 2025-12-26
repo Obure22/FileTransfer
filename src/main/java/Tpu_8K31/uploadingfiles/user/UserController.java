@@ -1,6 +1,5 @@
-package Tpu_8K31.uploadingfiles;
+package Tpu_8K31.uploadingfiles.user;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,32 +9,27 @@ import java.util.List;
 //@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     // Создать нового пользователя
     @PostMapping("/register")
     public UserEntity createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
-        String encodedPassword = passwordEncoder.encode(password);
-        UserEntity user = new UserEntity(username, email, encodedPassword);
-        return userRepository.save(user);
+        return userService.userCreate(username,email,password);
     }
 
     // Получить всех пользователей
     @GetMapping
     public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+        return userService.userAllGet();
     }
 
     // Получить пользователя по имени
     @GetMapping("/{username}")
     public UserEntity getUserByName(@PathVariable String username) {
-        return userRepository.findByUsername(username);
+        return userService.userGetByName(username);
     }
 }

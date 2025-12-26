@@ -1,4 +1,4 @@
-package Tpu_8K31.uploadingfiles;
+package Tpu_8K31.uploadingfiles.files;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
