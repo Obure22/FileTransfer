@@ -39,6 +39,9 @@ RUN adduser \
     --no-create-home \
     --uid "${UID}" \
     appuser
+
+RUN mkdir -p /uploads && chown -R appuser:appuser /uploads
+
 USER appuser
 
 # Copy the executable from the "package" stage.
