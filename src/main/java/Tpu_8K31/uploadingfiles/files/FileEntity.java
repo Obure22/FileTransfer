@@ -30,7 +30,7 @@ public class FileEntity {
     // Каждый файл имеет владельца
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id") // колонка в таблице files
+    @JoinColumn(name = "owner_id", nullable = false) // колонка в таблице files
     private UserEntity owner;
 
     public FileEntity() {}

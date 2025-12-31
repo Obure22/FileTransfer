@@ -19,22 +19,16 @@ export default function FormUpload() {
         formData.append("username", username);
         formData.append("timeLength", timeLength);
 
-        const token = localStorage.getItem("token");
+
 
         const response = await fetch("http://localhost:8080/api/upload", {
             method: "POST",
-            headers: {"Authorization": "Bearer " + token},
             body: formData,
+            credentials: "include"
         });
 
-        if (!response.ok) {
-          alert("Ошибка загрузки");
-          return;
-        }
-
-        const data = await response.json();
-        console.log("Ответ сервера:", data);
-        alert("Файл загружен");
+        const data = await response.text();
+        alert(data);
       }
 
     return (

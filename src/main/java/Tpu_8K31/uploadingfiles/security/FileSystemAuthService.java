@@ -2,6 +2,8 @@ package Tpu_8K31.uploadingfiles.security;
 
 import Tpu_8K31.uploadingfiles.user.UserEntity;
 import Tpu_8K31.uploadingfiles.user.UserRepository;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,17 @@ public class FileSystemAuthService implements AuthService {
                     .body("Неверный пароль");
         }
         String jwt = jwtUtil.generateToken(user.getUsername());
-        return ResponseEntity.ok(new AuthResponse(jwt));
+
+        ResponseCookie jwtCookie = ResponseCookie.from("token", jwt)
+                .httpOnly(true)       // JS не сможет прочитать эту куку (защита от XSS)
+                .secure(false)        // true для HTTPS, false для localhost (http) ПОМЕНЯТЬ ПРИ ДЕПЛОЕ!
+                .path("/")            // Кука доступна для всего домена
+                .maxAge(60 * 60)      // Время жизни (1 час, как и у токена)
+                .sameSite("Strict")   // Защита от CSRF (или "Lax")
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE,jwtCookie.toString())
+                .body("Вход выполнен");
     }
 }

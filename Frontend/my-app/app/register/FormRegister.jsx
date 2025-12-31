@@ -14,6 +14,16 @@ export default function FormRegister() {
             return;
         }
 
+        if (!email){
+            alert("Введите почту")
+            return;
+        }
+
+        if (!password){
+            alert("Введите пароль")
+            return;
+        }
+
         const formData = new FormData();
         formData.append("username", username);
         formData.append("email", email);
@@ -22,15 +32,10 @@ export default function FormRegister() {
         const response = await fetch("http://localhost:8080/api/users/register", {
             method: "POST",
             body: formData,
+            credentials: "include"
         });
-        if (!response.ok){
-            alert("Ошибка регистрации")
-        }
-        else {
-            const data = await response.json();
-            console.log("Ответ сервера:", data);
-            alert("Регистрация выполнена");
-        }
+        const bodyText = await response.text();
+        alert(bodyText);
 
     }
 

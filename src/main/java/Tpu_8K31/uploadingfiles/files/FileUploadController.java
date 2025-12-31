@@ -1,6 +1,7 @@
 package Tpu_8K31.uploadingfiles.files;
 
 import org.springframework.core.io.Resource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,8 +21,15 @@ public class FileUploadController {
 
 	// Загрузка файла с указанием владельца. С фронта подаётся кол-во времени до исчезновения файла в минутах.
 	@PostMapping("/upload")
-	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("timeLength")Long timeLength) {
-		return fileUploadService.fileUpload(file,username,timeLength);
+	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("timeLength")Long timeLength) {
+
+		try{
+			fileUploadService.fileUpload(file,username,timeLength);
+			return ResponseEntity.ok().body("Файл загружен");
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.badRequest().body("Файл не загружен");
+		}
+
 	}
 
 	// Получить все файлы

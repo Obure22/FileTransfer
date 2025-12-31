@@ -27,12 +27,9 @@ public class FileUploadSystemService implements FileUploadService {
     }
 
     @Override
-    public ResponseEntity<?> fileUpload(MultipartFile file, String username, Long timeLength) {
+    public void fileUpload(MultipartFile file, String username, Long timeLength) {
         // Проверяем, есть ли пользователь
         UserEntity user = userRepository.findByUsername(username);
-        if (user == null) {
-            return ResponseEntity.badRequest().body("Пользователь не найден: " + username);
-        }
 
         String uniqueName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
@@ -46,8 +43,6 @@ public class FileUploadSystemService implements FileUploadService {
         entity.setDeleteAt(entity.getUploadTime().plusMinutes(timeLength)); // в минутах
         entity.setOwner(user);
         fileRepository.save(entity);
-
-        return ResponseEntity.ok(entity);
     }
 
     @Override

@@ -9,8 +9,13 @@ export default function FormLogin() {
 
     async function handleLogin() {
         if (!username) {
-          alert("Введите логин");
-          return;
+            alert("Введите логин");
+            return;
+        }
+
+        if (!password) {
+            alert("Введите пароль")
+            return;
         }
 
         const formData = new FormData();
@@ -18,14 +23,19 @@ export default function FormLogin() {
         formData.append("password", password);
 
         const response = await fetch("http://localhost:8080/api/login", {
-          method: "POST",
-          body: formData,
+            method: "POST",
+            body: formData,
+            credentials: "include"
         });
 
-        const data = await response.json();
-        localStorage.setItem("token", data.token);
-        console.log("Ответ сервера:", data);
-        alert("Вход выполнен");
+        if (response.ok) {
+            alert("Вход выполнен");
+            //здесь можно редирект например на профиль
+        }
+        else {
+            const bodyText = await response.text();
+            alert(bodyText);
+        }
       }
 
     return (
