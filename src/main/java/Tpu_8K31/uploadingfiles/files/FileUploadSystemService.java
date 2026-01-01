@@ -4,6 +4,7 @@ import Tpu_8K31.uploadingfiles.storage.StorageService;
 import Tpu_8K31.uploadingfiles.user.UserEntity;
 import Tpu_8K31.uploadingfiles.user.UserRepository;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,13 @@ public class FileUploadSystemService implements FileUploadService {
         FileEntity entity = new FileEntity(file.getOriginalFilename(),uniqueName, url, file.getSize(),timeLength);
         entity.setDeleteAt(entity.getUploadTime().plusMinutes(timeLength)); // в минутах
         entity.setOwner(user);
-        fileRepository.save(entity);
+        try {
+            fileRepository.save(entity);
+        }
+        catch(DataIntegrityViolationException e ){
+            throw new FileUploadException("Файл не загружен");
+        }
+
     }
 
     @Override

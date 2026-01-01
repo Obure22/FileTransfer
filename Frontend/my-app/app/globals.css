@@ -1,42 +1,38 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-header {
+body {
+    width: 1100px;
+    margin: 0 auto;
+    font-family: Raleway, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+}
+
+img {
     width: 100%;
-    max-width: 600px;
-    display: flex;
-    justify-content: space-between; /* Заголовок слева, кнопка справа */
-    align-items: center;
-    margin-bottom: 20px;
 }
 
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #0078d7;
-    color: white;
-}
-
-header h1 {
-    margin: 0;
-}
-
-header button {
-    background-color: white;
-    color: #0078d7;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.profile-button {
-    margin-left: auto;
+button {
+    font: inherit;
 }

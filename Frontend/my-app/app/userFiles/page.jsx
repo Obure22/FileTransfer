@@ -8,11 +8,11 @@ export const metadata = {
 
 export default function FilesPage() {
   return (
-    <div>
-          <main>
-              <FormUpload />
-              <ul></ul>
-          </main>
-    </div>
+      <main>
+          <FormUpload />
+          <ul>
+          </ul>
+      </main>
+
   );
 }

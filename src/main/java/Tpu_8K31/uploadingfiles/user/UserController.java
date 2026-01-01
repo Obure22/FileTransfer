@@ -20,18 +20,8 @@ public class UserController {
     // Создать нового пользователя
     @PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
-        try {
-            userService.userCreate(username,email,password);
-            return ResponseEntity.ok().body("Регистрация успешна");
-        }
-        catch (DataIntegrityViolationException e){
-            if (userService.userGetByName(username) != null) {
-                return ResponseEntity.badRequest().body("Логин занят");
-            }
-            else {
-                return ResponseEntity.badRequest().body("Почта занята");
-            }
-        }
+        userService.userCreate(username,email,password);
+        return ResponseEntity.ok().body("Регистрация успешна");
     }
 
     // Получить всех пользователей

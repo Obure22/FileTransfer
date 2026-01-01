@@ -22,14 +22,8 @@ public class FileUploadController {
 	// Загрузка файла с указанием владельца. С фронта подаётся кол-во времени до исчезновения файла в минутах.
 	@PostMapping("/upload")
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("timeLength")Long timeLength) {
-
-		try{
-			fileUploadService.fileUpload(file,username,timeLength);
-			return ResponseEntity.ok().body("Файл загружен");
-		} catch (DataIntegrityViolationException e) {
-			return ResponseEntity.badRequest().body("Файл не загружен");
-		}
-
+		fileUploadService.fileUpload(file,username,timeLength);
+		return ResponseEntity.ok().body("Файл загружен");
 	}
 
 	// Получить все файлы

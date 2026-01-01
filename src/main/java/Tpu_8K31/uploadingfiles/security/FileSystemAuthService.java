@@ -22,18 +22,14 @@ public class FileSystemAuthService implements AuthService {
     }
 
     @Override
-    public ResponseEntity<?> checkPassword(String username, String password) {
-
+    public ResponseCookie checkPassword(String username, String password) {
         UserEntity user = userRepository.findByUsername(username);
+
         if (user == null) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Пользователь не найден");
+            throw new LoginException("Пользователь не найден");
         }
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Неверный пароль");
+            throw new LoginException("Неверный пароль");
         }
         String jwt = jwtUtil.generateToken(user.getUsername());
 
@@ -45,8 +41,6 @@ public class FileSystemAuthService implements AuthService {
                 .sameSite("Strict")   // Защита от CSRF (или "Lax")
                 .build();
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE,jwtCookie.toString())
-                .body("Вход выполнен");
+        return jwtCookie;
     }
 }
