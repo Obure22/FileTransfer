@@ -2,11 +2,11 @@ package Tpu_8K31.uploadingfiles.files;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -23,7 +23,9 @@ public class FileUploadController {
 
 	// Загрузка файла с указанием владельца. С фронта подаётся кол-во времени до исчезновения файла в минутах.
 	@PostMapping("/upload")
-	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("timeLength")Long timeLength) {
+	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("timeLength")Long timeLength,
+											 Principal principal) {
+		String username = principal.getName();
 		fileUploadService.fileUpload(file,username,timeLength);
 		return ResponseEntity.ok().body("Файл загружен");
 	}
@@ -35,8 +37,9 @@ public class FileUploadController {
 	}
 
 	// Получить файлы конкретного пользователя
-	@GetMapping("/files/user/{username}")
-	public List<FilesListDTO> getFilesByUser(@PathVariable String username) {
+	@GetMapping("/files/user")
+	public List<FilesListDTO> getFilesByUser(Principal principal) {
+		String username = principal.getName();
 		return fileUploadService.getUserFiles(username);
 	}
 

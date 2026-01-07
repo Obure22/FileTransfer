@@ -1,6 +1,5 @@
 import '@/app/ui/files.css';
-import FormUpload from './FormUpload.jsx';
-import FilesList from './FilesList.jsx';
+import FileManager from './FileManager.jsx';
 
 export const metadata = {
     title: 'Файлы пользователя',
@@ -8,15 +7,9 @@ export const metadata = {
 };
 
 export default function FilesPage() {
-
-
-
-
   return (
       <main>
-          <FormUpload/>
-          <FilesList/>
+          <FileManager></FileManager>
       </main>
-
   );
 }

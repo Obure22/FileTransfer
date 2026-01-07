@@ -1,26 +1,6 @@
 'use client';
 
-import { useState } from "react";
-import { useEffect } from 'react';
-
-export default function FilesList() {
-
-    const [files, setFiles] = useState([]);
-
-    useEffect( () => {
-
-             fetch('http://localhost:8080/api/files/user/12',
-                {
-                    method: "GET",
-                    credentials: "include"
-                })
-                .then(res => res.json())
-                .then(data => {
-                    setFiles(data);
-                    console.log(data)
-                });
-        }, []
-    );
+export default function FilesList({files}) {
     return(
         <ul>
             {files.map((file) => (
@@ -28,6 +8,10 @@ export default function FilesList() {
                         <h3>{file.filename}</h3>
                         <p>{file.size}</p>
                         <p>{file.deleteAt}</p>
+                        <button>Изменить</button>
+                        <button>Удалить</button>
+                        <button>Поделиться</button>
+                        <button>Скачать</button>
                     </li>
                 )
             )}
