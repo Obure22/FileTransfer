@@ -1,5 +1,6 @@
 package Tpu_8K31.uploadingfiles.storage;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.net.MalformedURLException;
 import java.nio.file.*;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 public class FileSystemStorageService implements StorageService {
 

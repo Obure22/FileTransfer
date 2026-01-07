@@ -2,12 +2,14 @@ package Tpu_8K31.uploadingfiles.security;
 
 import Tpu_8K31.uploadingfiles.user.UserEntity;
 import Tpu_8K31.uploadingfiles.user.UserRepository;
-import org.springframework.http.HttpHeaders;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class FileSystemAuthService implements AuthService {
 

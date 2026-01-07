@@ -3,10 +3,12 @@ package Tpu_8K31.uploadingfiles.exception;
 import Tpu_8K31.uploadingfiles.files.FileUploadException;
 import Tpu_8K31.uploadingfiles.security.LoginException;
 import Tpu_8K31.uploadingfiles.user.UserCreationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(UserCreationException.class)

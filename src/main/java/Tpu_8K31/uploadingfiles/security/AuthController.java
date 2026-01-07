@@ -1,10 +1,12 @@
 package Tpu_8K31.uploadingfiles.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequestMapping("/api")
 @RestController
 public class AuthController {

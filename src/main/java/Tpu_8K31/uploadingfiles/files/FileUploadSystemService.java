@@ -3,28 +3,34 @@ package Tpu_8K31.uploadingfiles.files;
 import Tpu_8K31.uploadingfiles.storage.StorageService;
 import Tpu_8K31.uploadingfiles.user.UserEntity;
 import Tpu_8K31.uploadingfiles.user.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class FileUploadSystemService implements FileUploadService {
 
     private final UserRepository userRepository;
     private final StorageService storageService;
     private final FileRepository fileRepository;
+    private final DTOMapper dtoMapper;
 
-    public FileUploadSystemService(UserRepository userRepository, StorageService storageService, FileRepository fileRepository) {
+    public FileUploadSystemService(UserRepository userRepository, StorageService storageService, FileRepository fileRepository, DTOMapper dtoMapper) {
         this.userRepository = userRepository;
         this.storageService = storageService;
         this.fileRepository = fileRepository;
+        this.dtoMapper = dtoMapper;
     }
 
     @Override
@@ -57,13 +63,14 @@ public class FileUploadSystemService implements FileUploadService {
         return fileRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<FileEntity> getUserFiles(String username) {
+    public List<FilesListDTO> getUserFiles(String username) {
         UserEntity user = userRepository.findByUsername(username);
         if (user == null) {
             return List.of();
         }
-        return user.getFiles();
+        return user.getFiles().stream().map(dtoMapper::createDTO).toList();
     }
 
     @Override

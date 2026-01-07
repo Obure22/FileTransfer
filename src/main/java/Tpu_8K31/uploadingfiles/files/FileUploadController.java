@@ -1,5 +1,6 @@
 package Tpu_8K31.uploadingfiles.files;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "http://localhost:3000") // тут
@@ -34,7 +36,7 @@ public class FileUploadController {
 
 	// Получить файлы конкретного пользователя
 	@GetMapping("/files/user/{username}")
-	public List<FileEntity> getFilesByUser(@PathVariable String username) {
+	public List<FilesListDTO> getFilesByUser(@PathVariable String username) {
 		return fileUploadService.getUserFiles(username);
 	}
 
