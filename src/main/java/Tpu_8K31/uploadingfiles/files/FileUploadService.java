@@ -10,6 +10,6 @@ public interface FileUploadService {
     void  fileUpload(MultipartFile file, String username, Long timeLength);
     List<FileEntity> filesList();
     List<FilesListDTO> getUserFiles(String username);
-    ResponseEntity<Resource> fileGet(String uniqueFileName);
-    ResponseEntity<?> fileDelete(String uniqueFileName);
+    ResponseEntity<Resource> fileGet(Long fileId);
+    ResponseEntity<?> fileDelete(Long fileId);
 }

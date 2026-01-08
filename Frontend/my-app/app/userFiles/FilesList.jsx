@@ -1,6 +1,6 @@
 'use client';
 
-export default function FilesList({files}) {
+export default function FilesList({files,downloadIfClicked,deleteIfClicked}) {
     return(
         <ul>
             {files.map((file) => (
@@ -9,9 +9,9 @@ export default function FilesList({files}) {
                         <p>{file.size}</p>
                         <p>{file.deleteAt}</p>
                         <button>Изменить</button>
-                        <button>Удалить</button>
+                        <button onClick={()=>deleteIfClicked(file.id)}>Удалить</button>
                         <button>Поделиться</button>
-                        <button>Скачать</button>
+                        <button onClick={()=>downloadIfClicked(file.id,file.filename)}>Скачать</button>
                     </li>
                 )
             )}

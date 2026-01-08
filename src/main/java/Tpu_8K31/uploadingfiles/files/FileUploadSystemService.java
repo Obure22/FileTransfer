@@ -74,18 +74,20 @@ public class FileUploadSystemService implements FileUploadService {
     }
 
     @Override
-    public ResponseEntity<Resource> fileGet(String uniqueFileName) {
+    public ResponseEntity<Resource> fileGet(Long fileId) {
+        FileEntity fileEntity = fileRepository.findById(fileId).orElseThrow(()->new FileUploadException("Такого файла нет"));
+        String uniqueFileName = fileEntity.getUniqueFileName();
         Resource file = storageService.loadAsResource(uniqueFileName);
-        FileEntity fileEntity = fileRepository.findByUniqueFileName(uniqueFileName);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileEntity.getUniqueFileName() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + uniqueFileName + "\"")
                 .body(file);
     }
 
     @Override
-    public ResponseEntity<?> fileDelete(String uniqueFileName) {
-        FileEntity file = fileRepository.findByUniqueFileName(uniqueFileName);
+    public ResponseEntity<?> fileDelete(Long fileId) {
+        FileEntity file = fileRepository.findById(fileId).orElseThrow(()->new FileUploadException("Такого файла нет"));
+        String uniqueFileName = file.getUniqueFileName();
         if (file == null){
             return ResponseEntity.notFound().build();
         }

@@ -44,14 +44,14 @@ public class FileUploadController {
 	}
 
 	// Скачать файл
-	@GetMapping("/files/{uniqueFileName:.+}")
-	public ResponseEntity<Resource> getFile(@PathVariable String uniqueFileName) {
-		return fileUploadService.fileGet(uniqueFileName);
+	@GetMapping("/files/{fileId}")
+	public ResponseEntity<Resource> getFile(@PathVariable Long fileId) {
+		return fileUploadService.fileGet(fileId);
 	}
 
 	// Удалить файл
-	@DeleteMapping("/files/{uniqueFileName:.+}")
-	public ResponseEntity<?> deleteFile(@PathVariable String uniqueFileName){
-		return fileUploadService.fileDelete(uniqueFileName);
+	@DeleteMapping("/files/{fileId}")
+	public ResponseEntity<?> deleteFile(@PathVariable Long fileId){
+		return fileUploadService.fileDelete(fileId);
     }
 }
